@@ -3,8 +3,16 @@
 
 std::string TorrentParser::infoHash(BenCodeObject& torrent) {
 	BenCodeObject info = getInfo(torrent);
-	return infoHash(bencode::encode(info));
+	std::string encoded = bencode::encode(info);
+	return infoHash(encoded);
 	
+}
+
+size_t TorrentParser::numberPieces(BenCodeObject& torrent) {
+	BenCodeObject info = getInfo(torrent);
+	BenCodeDictionary<BenCodeObject> infoDict = *info.getDictionary();
+	BenCodeObject pieces = infoDict["pieces"];
+	return pieces.getString().size() / 20;
 }
 
 size_t TorrentParser::fileSize(BenCodeObject& torrent) {
@@ -31,6 +39,48 @@ size_t TorrentParser::fileSize(BenCodeObject& torrent) {
 	throw Exception("torrent file has no length");
 }
 
+size_t TorrentParser::pieceLength(BenCodeObject& torrent, int pieceIndex) {
+	size_t totalSize = fileSize(torrent);
+	
+	BenCodeObject info = getInfo(torrent);
+	
+	BenCodeDictionary<BenCodeObject> infoDict = *info.getDictionary();
+
+	size_t pieceLength = infoDict["piece length"].getInteger();
+
+	size_t lastPieceLength = totalSize % pieceLength;
+	int lastPieceIndex = std::floor(totalSize / pieceLength);
+
+	if (pieceIndex == lastPieceIndex) {
+		return lastPieceLength;
+	}
+	else {
+		return pieceLength;
+	}
+}
+
+size_t TorrentParser::blocksPerPiece(BenCodeObject& torrent, int pieceIndex) {
+	size_t pieceLen = pieceLength(torrent, pieceIndex);
+
+	double blocksPerPiece = (double)pieceLen / (double)BLOCKSIZE;
+	return std::ceil(blocksPerPiece);
+}
+
+size_t TorrentParser::blockLen(BenCodeObject& torrent, int pieceIndex, int blockIndex) {
+	size_t pieceLen = pieceLength(torrent, pieceIndex);
+
+	
+	size_t lastPieceLength = pieceLen % BLOCKSIZE;
+	int lastPieceIndex = std::floor(pieceLen / BLOCKSIZE);
+	
+	if (blockIndex == lastPieceIndex) {
+		return lastPieceLength;
+	}
+	else {
+		return BLOCKSIZE;
+	}
+}
+
 BenCodeObject TorrentParser::getInfo(BenCodeObject& torrent) {
 	if (torrent.bType != BenCodeType::BenCode_Dictionary) {
 		throw Exception("torrent file is not a dictionary");
@@ -46,7 +96,7 @@ BenCodeObject TorrentParser::getInfo(BenCodeObject& torrent) {
 	return info;
 }
 
-std::string TorrentParser::infoHash(std::string&& torrent) {
+std::string TorrentParser::infoHash(std::string& torrent) {
 	Sha1 hashFun;
 	hashFun.update(torrent);
 	return hashFun.final();

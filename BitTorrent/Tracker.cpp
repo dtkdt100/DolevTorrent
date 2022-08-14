@@ -5,15 +5,15 @@ Tracker::Tracker(std::string host, int port): sock(SOCK_DGRAM, IPPROTO_UDP) {
 	sock.connectSocket(host, port);
 }
 
-std::vector< Peer> Tracker::getPeers(BenCodeObject& torrent) {
+std::vector<PeerInfo> Tracker::getPeers(BenCodeObject& torrent) {
 	std::string connReq = buildConnReq();
 	sock.sendMessage(connReq);
-	std::string response = sock.receiveMessage();
+	std::string response = sock.receiveMessage(1024);
 	analyzeConnRespose(response);
 	std::string annoReq = buildAnnounceReq(torrent);
 	sock.sendMessage(annoReq);
-	std::string response2 = sock.receiveMessage();
-	return analyzeAnnounceRespose(response2);
+	response = sock.receiveMessage(1024);
+	return analyzeAnnounceRespose(response);
 }
 
 void Tracker::analyzeConnRespose(std::string& response) {
@@ -31,7 +31,7 @@ void Tracker::analyzeConnRespose(std::string& response) {
 	connectionId = HexUtils::hexToInt64(response.substr(8, 8));
 }
 
-std::vector<Peer> Tracker::analyzeAnnounceRespose(std::string& response) {
+std::vector<PeerInfo> Tracker::analyzeAnnounceRespose(std::string& response) {
 	if (response.size() < 20) {
 		throw Exception("Not a valid announce response");
 	}
@@ -47,19 +47,24 @@ std::vector<Peer> Tracker::analyzeAnnounceRespose(std::string& response) {
 	int interval = HexUtils::hexToInt(response.substr(8, 8));
 	int leechers = HexUtils::hexToInt(response.substr(12, 8));
 	int seeders = HexUtils::hexToInt(response.substr(16, 8));
- 	std::vector<Peer> peers;
+ 	std::vector<PeerInfo> peers;
 	for (int i = 20; i < response.size(); i += 6) {
-		Peer p;
+		PeerInfo p;
 		std::string ip = "";
 		
 		for (int j = 0; j < 4; j++) {
-			ip.push_back(response[i + j]);
+			unsigned char c = response[i + j];
+			std::string s  = std::to_string(c);
+			
+			for (int k = 0; k < s.size(); k++) {
+				ip.push_back(s[k]);
+			}
+			
 			if (j != 3) ip.push_back('.');
 		}
 		p.ip = ip;
-		
-		unsigned char convertedInt = *response.substr(i + 4, 2).c_str();
-		p.port = convertedInt;
+		p.port = HexUtils::hexToInt16(response.substr(i + 4, 2));
+		p.id = peerId;
 		peers.push_back(p);
 	}
 	return peers;
@@ -90,7 +95,8 @@ std::string Tracker::buildAnnounceReq(BenCodeObject& torrent) {
 	HexUtils::writeUInt32BE(&buf, transactionId);
 	// info hash
 	std::string info = TorrentParser::infoHash(torrent);
-	HexUtils::writeBytes(&buf, HexUtils::hexStringToBufferHex(info));
+	infoHash = HexUtils::hexStringToBufferHex(info);
+	HexUtils::writeBytes(&buf, infoHash);
 	// peer id
 	if (peerId.size() == 0) {
 		generatePeerId();

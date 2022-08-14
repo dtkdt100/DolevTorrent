@@ -24,3 +24,26 @@ int UrlUtils::getPort(std::string& url) {
 	std::string port = url.substr(found + 1, found1 - found - 1);
 	return std::atoi(port.c_str());
 }
+
+Protocol UrlUtils::getProtocol(std::string& url) {
+	std::string protocol;
+	size_t pos = url.find("://");
+	if (pos != std::string::npos) {
+		protocol = url.substr(0, pos);
+	}
+	if (protocol == "http") {
+		return Protocol::HTTP;
+	}
+	else if (protocol == "https") {
+		return Protocol::HTTPS;
+	}
+	else if (protocol == "udp") {
+		return Protocol::UDP;
+	}
+	else if (protocol == "wss") {
+		return Protocol::WSS;
+	}
+	else {
+		return Protocol::UNKNOWN;
+	}
+}

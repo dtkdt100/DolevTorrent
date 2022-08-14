@@ -1,5 +1,9 @@
 #include "HexUtils.h"
 
+void HexUtils::writeUInt8(Buffer* b, uint8_t val) {
+	b->push_back(val);
+}
+
 void HexUtils::writeUInt16BE(Buffer* b, uint16_t val) {
 	b->push_back((val >> 8) & 0xFF);
 	b->push_back(val & 0xFF);
@@ -31,7 +35,17 @@ void HexUtils::writeBytes(Buffer* b, Buffer bVal) {
 	}
 }
 
+void HexUtils::writeString(Buffer* b, std::string&& s) {
+	for (uint32_t i = 0; i < s.length(); i++) {
+		b->push_back(s[i]);
+	}
+}
 
+
+
+uint16_t HexUtils::bufferToUInt16(Buffer& b) {
+	return (b[0] << 8) | b[1];
+}
 
 uint32_t HexUtils::bufferToUInt32(Buffer& b) {
 	uint32_t val = 0;
@@ -40,7 +54,6 @@ uint32_t HexUtils::bufferToUInt32(Buffer& b) {
 		val |= b[i];
 	}
 	return val;
-	//return hexToInt(std::string(b.begin(), b.end()));
 }
 
 uint64_t HexUtils::bufferToUInt64(Buffer& b) {
@@ -56,7 +69,6 @@ std::string HexUtils::toEexNNFormat(unsigned char& c) {
 	std::string hexNNForamt = "";
 	char hex[3] = { 0 };
 	sprintf_s(hex, "%02x", c);
-	hexNNForamt.push_back('%');
 	hexNNForamt.push_back(hex[0]);
 	hexNNForamt.push_back(hex[1]);
 	return hexNNForamt;
@@ -77,6 +89,14 @@ uint32_t HexUtils::hexToInt(std::string&& hexStr) {
 		buf.push_back(hexStr[i]);
 	}
 	return bufferToUInt32(buf);
+}
+
+uint32_t HexUtils::hexToInt16(std::string&& hexStr) {
+	Buffer buf;
+	for (int i = 0; i < hexStr.size(); i++) {
+		buf.push_back(hexStr[i]);
+	}
+	return bufferToUInt16(buf);
 }
 
 uint32_t HexUtils::hexToInt(char& hexChar) {

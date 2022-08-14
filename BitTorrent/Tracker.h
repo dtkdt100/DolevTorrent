@@ -6,19 +6,23 @@
 #include "CryptoGen.h"
 #include "TorrentParser.h"
 
-struct Peer {
+struct PeerInfo {
 	std::string ip;
-	int port;
+	uint16_t port;
+	Buffer id;
 };
 
-
 class Tracker {
+	
 public:
 	Tracker(std::string host, int port);
-	std::vector<Peer> getPeers(BenCodeObject& torrent);
+	std::vector<PeerInfo> getPeers(BenCodeObject& torrent);
+
+	Buffer infoHash;
+	Buffer peerId;
 private:
 	void analyzeConnRespose(std::string& response);
-	std::vector<Peer> analyzeAnnounceRespose(std::string& response);
+	std::vector<PeerInfo> analyzeAnnounceRespose(std::string& response);
 	std::string buildConnReq();
 	std::string buildAnnounceReq(BenCodeObject& torrent);
 	void generatePeerId();
@@ -26,6 +30,5 @@ private:
 	Socket sock;
 	uint32_t transactionId;
 	uint64_t connectionId;
-	Buffer peerId;
 };
 

@@ -31,6 +31,12 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{beb1fa99-0df4-4a2e-9369-45085f8b0358}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\bittorrent">
+      <UniqueIdentifier>{5ddd92e0-4d5a-4962-b0cf-1179b21e23cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\bittorrent">
+      <UniqueIdentifier>{9462572e-c661-487e-b45d-33965d7ab179}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Handle.cpp">
@@ -51,17 +57,11 @@
     <ClCompile Include="BenCodeObject.cpp">
       <Filter>Source Files\bencode</Filter>
     </ClCompile>
-    <ClCompile Include="Tracker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UrlUtils.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="HexUtils.cpp">
       <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="TorrentParser.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WinShok.cpp">
       <Filter>Source Files\lib</Filter>
@@ -71,6 +71,30 @@
     </ClCompile>
     <ClCompile Include="Sha1.cpp">
       <Filter>Source Files\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Downloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FilePathUtils.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Directory.cpp">
+      <Filter>Source Files\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Tracker.cpp">
+      <Filter>Source Files\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="TorrentParser.cpp">
+      <Filter>Source Files\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="Messages.cpp">
+      <Filter>Source Files\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="Peer.cpp">
+      <Filter>Source Files\bittorrent</Filter>
+    </ClCompile>
+    <ClCompile Include="Pieces.cpp">
+      <Filter>Source Files\bittorrent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,17 +119,11 @@
     <ClInclude Include="BenCodeObject.h">
       <Filter>Header Files\bencode</Filter>
     </ClInclude>
-    <ClInclude Include="Tracker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UrlUtils.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="HexUtils.h">
       <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="TorrentParser.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WinShok.h">
       <Filter>Header Files\lib</Filter>
@@ -115,6 +133,30 @@
     </ClInclude>
     <ClInclude Include="Sha1.h">
       <Filter>Header Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Downloader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FilePathUtils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Directory.h">
+      <Filter>Header Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracker.h">
+      <Filter>Header Files\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="TorrentParser.h">
+      <Filter>Header Files\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="Pieces.h">
+      <Filter>Header Files\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="Messages.h">
+      <Filter>Header Files\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="Peer.h">
+      <Filter>Header Files\bittorrent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

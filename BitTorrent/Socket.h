@@ -12,10 +12,14 @@ public:
 	~Socket();
 	void connectSocket(std::string& hostname, int port);
 	void sendMessage(std::string& message);
-	std::string receiveMessage();
+	std::string receiveMessage(int bytesToReceive);
+	std::string onWholeMessage(bool handshake);
 	void closeSocket();
 private:
 	WinShok winShok;
 	SOCKET sock;
+
+	int sType;
+	int sProtocol;
 };
 
