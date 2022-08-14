@@ -6,9 +6,6 @@ This bittorent client if full working with mininova .torrent files. I implemente
 
 Feel free to use my code for anything you want :) Good luck!
 
-This a new implementeation for [FrancoTorrent](https://github.com/Frayo44/FrancoTorrent) with better code, newer version and tests.
-
-
 ## Building the client
 
 1. http://www.bittorrent.org/beps/bep_0015.html
