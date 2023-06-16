@@ -42,6 +42,7 @@ BenCodeInteger bencode::decodeInteger(std::string& decodedStr, int* i) {
 }
 
 BenCodeString bencode::decodeString(std::string& decodedStr, int* i) {
+	// <length>:<contents>: 4:spam -> spam
 	BenCodeInteger numberOfBytes = getInBenCodeInteger(decodedStr, i, ':');
 	
 	BenCodeString retValue;
@@ -55,6 +56,7 @@ BenCodeString bencode::decodeString(std::string& decodedStr, int* i) {
 }
 
 BenCodeList<BenCodeObject> bencode::decodeList(std::string& decodedStr, int* i) {
+	//  l<contents>e: l4:spami42ee -> [spam, 42]
 	BenCodeList<BenCodeObject> retValue;
 	*i += 1;
 	while (decodedStr[*i] != 'e') {
@@ -65,6 +67,7 @@ BenCodeList<BenCodeObject> bencode::decodeList(std::string& decodedStr, int* i) 
 }
 
 BenCodeDictionary<BenCodeObject> bencode::decodeDictionary(std::string& decodedStr, int* i) {
+	// starts with d and ends with 3: d3:bar4:spam3:fooi42ee -> {"bar": "spam", "foo": 42}
 	BenCodeDictionary<BenCodeObject> retValue;
 	*i += 1;
 	while (decodedStr[*i] != 'e') {
@@ -76,6 +79,7 @@ BenCodeDictionary<BenCodeObject> bencode::decodeDictionary(std::string& decodedS
 }
 
 BenCodeInteger bencode::getInBenCodeInteger(std::string& decodedStr, int* i, char ending) {
+	// The interager starts with an i and ends with e. for exanple: i42e -> 42
 	int retValue = 0;
 	int sign = 1;
 

@@ -45,12 +45,6 @@
     <ClCompile Include="File.cpp">
       <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="Exception.cpp">
-      <Filter>Source Files\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="CryptoGen.cpp">
-      <Filter>Source Files\lib</Filter>
-    </ClCompile>
     <ClCompile Include="bencode.cpp">
       <Filter>Source Files\bencode</Filter>
     </ClCompile>
@@ -69,17 +63,11 @@
     <ClCompile Include="Socket.cpp">
       <Filter>Source Files\lib</Filter>
     </ClCompile>
-    <ClCompile Include="Sha1.cpp">
-      <Filter>Source Files\lib</Filter>
-    </ClCompile>
     <ClCompile Include="Downloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FilePathUtils.cpp">
       <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Directory.cpp">
-      <Filter>Source Files\lib</Filter>
     </ClCompile>
     <ClCompile Include="Tracker.cpp">
       <Filter>Source Files\bittorrent</Filter>
@@ -96,21 +84,24 @@
     <ClCompile Include="Pieces.cpp">
       <Filter>Source Files\bittorrent</Filter>
     </ClCompile>
+    <ClCompile Include="CryptoGen.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Directory.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Sha1.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Handle.h">
       <Filter>Header Files\lib</Filter>
     </ClInclude>
-    <ClInclude Include="Defs.h">
-      <Filter>Header Files\lib</Filter>
-    </ClInclude>
     <ClInclude Include="File.h">
-      <Filter>Header Files\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Exception.h">
-      <Filter>Header Files\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="CryptoGen.h">
       <Filter>Header Files\lib</Filter>
     </ClInclude>
     <ClInclude Include="bencode.h">
@@ -131,17 +122,11 @@
     <ClInclude Include="Socket.h">
       <Filter>Header Files\lib</Filter>
     </ClInclude>
-    <ClInclude Include="Sha1.h">
-      <Filter>Header Files\lib</Filter>
-    </ClInclude>
     <ClInclude Include="Downloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FilePathUtils.h">
       <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Directory.h">
-      <Filter>Header Files\lib</Filter>
     </ClInclude>
     <ClInclude Include="Tracker.h">
       <Filter>Header Files\bittorrent</Filter>
@@ -157,6 +142,21 @@
     </ClInclude>
     <ClInclude Include="Peer.h">
       <Filter>Header Files\bittorrent</Filter>
+    </ClInclude>
+    <ClInclude Include="CryptoGen.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Defs.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Directory.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sha1.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,9 +2,10 @@
 
 int main() {	
 	try {
-		std::string path = "C:\\temp\\sample9.torrent";
+		// The torrent file path
+		std::string path = "C:\\temp\\small_file.torrent";
 		Downloader d(path);
-	} 
+	}
 	catch (Exception e) {
 		e.printException();
 	}
