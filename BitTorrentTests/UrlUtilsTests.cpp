@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BitTorrent/UrlUtils.h"
 
+// // We will test here the class UrlUtils
 TEST(UrlUtilsTest, TestDomainName) {
 	std::string url = "udp://tracker.openbittorrent.com:80";
 	std::string domain = UrlUtils::getDomain(url);

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BitTorrent/bencode.h"
 
+// We will test here the class BenCodeObject
 TEST(BenCodeTest, TestIntegerType) {
 	std::string bencodeStr = "i9e";
 	BenCodeObject res = bencode::decode(bencodeStr);

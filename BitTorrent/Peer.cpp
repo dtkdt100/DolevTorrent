@@ -27,9 +27,6 @@ void Peer::messageHandler(std::string& msg) {
 		sock.sendMessage(interestedMsg);
 		std::string response = sock.onWholeMessage(false);
 		response = sock.receiveMessage(5);
-		/*if (response.size() > 5) {
-			response = sock.onWholeMessage(false, 5);
-		}*/
 		BenCodeDictionary<BenCodeObject> res = Messages::parseResponse(response);
 		int id = res["id"].getInteger();
 		switch (id) {

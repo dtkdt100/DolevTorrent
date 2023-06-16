@@ -4,6 +4,9 @@
 
 
 class bencode {
+	// Bencode (pronounced like Bee-encode) is the encoding used by the peer-to-peer 
+	// file sharing system BitTorrent for storing and transmitting loosely structured data.
+	// This class can decode a string that is decoded with bencode or encode it.
 public:
 	static BenCodeObject decode(std::string& decodedStr);
 	static std::string encode(BenCodeObject obj);
